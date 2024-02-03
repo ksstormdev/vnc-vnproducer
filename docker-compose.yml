@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  vnp-directus:
+    image: directus/directus:10.8.3
+    environment:
+      KEY:                "${KEY}"
+      SECRET:             "${SECRET}"
+      DB_CLIENT:          "${DB_CLIENT}"
+      DB_HOST:            "${DB_HOST}"
+      DB_PORT:            "${DB_PORT}"
+      DB_DATABASE:        "${DB_DATABASE}"
+      DB_USER:            "${DB_USER}"
+      DB_PASSWORD:        "${DB_PASSWORD}"
+      DB_CHARSET:         "${DB_CHARSET}"
+      WEBSOCKETS_ENABLED: true
+      CACHE_ENABLED:      false
+    hostname: "vnp-directus"
+    volumes:
+      - "./uploads:/directus/uploads"
+      - "./extensions:/directus/extensions"
+    restart: unless-stopped
+    networks:
+      - external
+
+  vnp-frontend:
+    image: reg.ksstorm.dev/node-lts-remix:latest
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_DB=11
+    hostname: "vnp-frontend"
+    volumes:
+      - "./frontend:/usr/src/app"
+    restart: unless-stopped
+    networks:
+      - external
+
+  vnp-ftpserver:
+    image: stilliard/pure-ftpd:hardened
+    hostname: "vnp-ftpserver"
+    volumes:
+      - "./ftpdata:/var/ftp"
+      - "./passwd:/etc/pure-ftpd/passwd"
+    ports:
+      - "2100:21"
+      - "40000-40009:30000-30009"
+    environment:
+      PUBLICHOST:    "localhost"
+      FTP_USER_NAME: "vnpuser"
+      FTP_USER_PASS: "vnpsecret"
+      FTP_USER_HOME: "/var/ftp"
+    restart: unless-stopped
+    networks:
+      - external
+
+networks:
+  external:
+    external: true
