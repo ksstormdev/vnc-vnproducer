@@ -28,6 +28,8 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_DB=11
+      - REDIS_PORT=6379
+      - DIRECTUS_URL=http://vnp-directus:8055
     hostname: "vnp-frontend"
     volumes:
       - "./frontend:/usr/src/app"

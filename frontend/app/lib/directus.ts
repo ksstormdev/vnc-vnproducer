@@ -30,6 +30,6 @@ type Schema = {
   pages: Page[];
 }
 
-const directus = createDirectus<Schema>('http://vnp:8055').with(rest());
+const directus = createDirectus<Schema>(process.env.DIRECTUS_URL).with(rest());
 
 export default directus;
