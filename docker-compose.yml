@@ -4,6 +4,8 @@ services:
   vnp-directus:
     container_name: vnp-directus
     image: directus/directus:10.8.3
+    ports:
+      - 8055:8055
     environment:
       KEY:                "${KEY}"
       SECRET:             "${SECRET}"
@@ -27,6 +29,8 @@ services:
   vnp-frontend:
     container_name: vnp-frontend
     image: reg.ksstorm.dev/node-lts-remix:latest
+    ports:
+      - 3000:3000
     environment:
       - REDIS_HOST=redis
       - REDIS_DB=11
