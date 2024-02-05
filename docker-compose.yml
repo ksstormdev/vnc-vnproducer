@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   vnp-directus:
+    container_name: vnp-directus
     image: directus/directus:10.8.3
     environment:
       KEY:                "${KEY}"
@@ -24,6 +25,7 @@ services:
       - external
 
   vnp-frontend:
+    container_name: vnp-frontend
     image: reg.ksstorm.dev/node-lts-remix:latest
     environment:
       - REDIS_HOST=redis
@@ -38,6 +40,7 @@ services:
       - external
 
   vnp-ftpserver:
+    container_name: vnp-ftpserver
     image: stilliard/pure-ftpd:hardened
     hostname: "vnp-ftpserver"
     volumes:
