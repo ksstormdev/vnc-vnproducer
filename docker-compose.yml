@@ -16,8 +16,8 @@ services:
       DB_USER:            "${DB_USER}"
       DB_PASSWORD:        "${DB_PASSWORD}"
       DB_CHARSET:         "${DB_CHARSET}"
-      WEBSOCKETS_ENABLED: true
-      CACHE_ENABLED:      false
+      WEBSOCKETS_ENABLED: "true"
+      CACHE_ENABLED:      "false"
     hostname: "vnp-directus"
     volumes:
       - "./uploads:/directus/uploads"

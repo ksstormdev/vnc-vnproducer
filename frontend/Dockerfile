@@ -9,6 +9,7 @@ FROM deps AS builder
 WORKDIR /app
 COPY . .
 RUN npm run build
+
 FROM deps AS prod-deps
 WORKDIR /app
 RUN npm ci --omit=dev
